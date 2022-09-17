@@ -1,20 +1,29 @@
 package com.sychev.mamane.android
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import com.sychev.mamane.Greeting
-import android.widget.TextView
 
 fun greet(): String {
     return Greeting().greeting()
 }
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+            Test()
+        }
+    }
+}
 
-        val tv: TextView = findViewById(R.id.text_view)
-        tv.text = greet()
+@Composable
+fun Test() {
+    Column {
+        Text("Hello, ${greet()}!")
     }
 }

@@ -4,13 +4,24 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = (findProperty("android.compileSdk") as String).toInt()
     defaultConfig {
         applicationId = "com.sychev.mamane.android"
-        minSdk = 26
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = (findProperty("android.minSdk") as String).toInt()
+        targetSdk = (findProperty("android.targetSdk") as String).toInt()
+        versionCode = 100000
+        versionName = "1.0.0"
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.0"
+    }
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
     buildTypes {
         getByName("release") {
@@ -21,7 +32,14 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+    //Compose
+    implementation(libs.composeUi)
+    implementation(libs.composeUiTooling)
+    implementation(libs.composeUiToolingPreview)
+    implementation(libs.composeFoundation)
+    implementation(libs.composeMaterial)
+    //Compose utils
+    implementation(libs.activityCompose)
+
+    implementation(libs.material)
 }
